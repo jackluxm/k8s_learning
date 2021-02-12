@@ -1,0 +1,23 @@
+使用https://github.com/jackluxm/k8s_learning/tree/main/minikube/test1 中文件
+
+首先生成一个docker hub （hub.docker.com）上的jackluxm/kubia 镜像，  jackluxm在dockerhub上有账号
+
+	1. git clone https://github.com/jackluxm/k8s_learning.git
+	2. cd k8s_learning/minikube/test1
+	3. docker build -t kubia .    
+	# 生成了一个名为kubia的 docker image, 以此image产生的容器会运行nodejs 监听8080端口
+	#  可以用以下命令运行容器 docker run --name kubia-container -p 8080:8080 -d kubia
+	4. docker tag kubia jackluxm/kubia  
+	5. docker push jackluxm/kubia
+	
+先装好minikube和kubectl. 然后通过minikube运行该容器
+	1. minikube start
+	2. kubectl create -f rc.yml   #生成了一个replicationController 和一个pod
+	3. kubectl get pods -o wide  #查看并确保pod状态是running
+	4. kubectl expose rc kubia-rc --type=LoadBalancer --name kubia-http
+	生成一个loadbalance service并映射端口8080, 可以通过以下命令查看service
+	kubectl get svc
+	5. minikube service kubia-http  通过这命令来访问该service,就是访问容器的8080端口
+	6. kubectl scale rc kubia-rc --replicas=3  #扩展该rc pod数为3
+	7. kubectl describe svc/kubia-http  可以看到endpoints 指向了三个Pod
+不停访问该nodejs服务，可以发现返回的Pod节点名字变化，证明已经负载均衡到3个pod。
