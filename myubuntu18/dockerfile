@@ -1,0 +1,17 @@
+# Base image
+FROM ubuntu:18.04
+
+# Install.
+RUN \
+  apt-get update && \
+  apt-get install -y net-tools curl w3m iproute2 iproute2-doc inetutils-ping openssh-client telnet vim lsof dmidecode tmux tree man wget git && \
+  rm -rf /var/lib/apt/lists/*
+
+# Add files.
+#ADD .bashrc /root/.bashrc
+
+# Define working directory.
+WORKDIR /root
+
+# 容器默认启动命令
+ENTRYPOINT ["bash"]
