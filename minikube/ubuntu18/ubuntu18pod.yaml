@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: u18
-    image: ubuntu:18.04
+    image: jackluxm/ubuntu18.04:v1
     imagePullPolicy: IfNotPresent
     command: [ "/bin/bash", "-ce", "tail -f /dev/null"]
   imagePullSecrets:
