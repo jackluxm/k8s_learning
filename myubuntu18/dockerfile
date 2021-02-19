@@ -3,9 +3,9 @@ FROM ubuntu:18.04
 
 # Install.
 RUN \
+  rm /etc/dpkg/dpkg.cfg.d/excludes && \
   apt-get update && \
-  apt-get install -y net-tools curl w3m iproute2 iproute2-doc inetutils-ping openssh-client telnet vim lsof dmidecode tmux tree man wget git && \
-  rm -rf /var/lib/apt/lists/*
+  apt-get install -y net-tools curl w3m iproute2 iproute2-doc inetutils-ping openssh-client telnet vim lsof dmidecode tmux tree man wget git apt-file dnsutils 
 
 # Add files.
 #ADD .bashrc /root/.bashrc
