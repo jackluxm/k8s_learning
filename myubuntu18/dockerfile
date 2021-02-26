@@ -5,7 +5,10 @@ FROM ubuntu:18.04
 RUN \
   rm /etc/dpkg/dpkg.cfg.d/excludes && \
   apt-get update && \
-  apt-get install -y net-tools curl w3m iproute2 iproute2-doc inetutils-ping openssh-client telnet vim lsof dmidecode tmux tree man wget git apt-file dnsutils 
+  apt install -y net-tools curl iproute2 inetutils-ping openssh-client telnet lsof tree dnsutils htop ncdu && \
+  apt-get clean && \
+  apt-get autoclean && \
+  rm -rf /var/lib/apt/lists/*
 
 # Add files.
 #ADD .bashrc /root/.bashrc
